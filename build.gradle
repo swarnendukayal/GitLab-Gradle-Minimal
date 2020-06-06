@@ -26,7 +26,7 @@ buildscript {
 allprojects {
     repositories {
         maven {
-            url "http://127.0.0.1:8081/artifactory/jcenter"
+            url "https://vigneshs.jfrog.io/artifactory/jcenter"
         }
     }
 }
@@ -50,7 +50,7 @@ publishing {
 }
 
 artifactory {
-    contextUrl = 'http://127.0.0.1:8081/artifactory'
+    contextUrl = 'https://vigneshs.jfrog.io/artifactory'
     publish {
         repository {
             repoKey = 'gradle-dev-local' // The Artifactory repository key to publish to
