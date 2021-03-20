@@ -25,9 +25,9 @@ steps:
   inputs:
     gradleBuildFile: 'build.gradle'
     tasks: 'artifactoryPublish'
-    artifactoryResolverService: 'artifactory'
+    artifactoryResolverService: 'art-gaja'
     sourceRepo: 'libs-release'
-    artifactoryDeployerService: 'artifactory'
+    artifactoryDeployerService: 'art-gaja'
     targetRepo: 'libs-release'
     usesPlugin: true
     useWrapper: true
@@ -36,6 +36,32 @@ steps:
     buildNumber: '$(Build.BuildNumber)'
 - task: ArtifactoryPublishBuildInfo@1
   inputs:
-    artifactoryService: 'artifactory'
+    artifactoryService: 'art-gaja'
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
+
+- task: ArtifactoryXrayScan@1
+  inputs:
+    artifactoryService: 'art-gaja'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    allowFailBuild: true
+
+- task: ArtifactoryBuildPromotion@1
+  inputs:
+    artifactoryService: 'art-gaja'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    targetRepo: 'libs-release'
+    status: 'Released'
+    sourceRepo: 'libs-release-local'
+    includeDependencies: true
+    copy: false
+    dryRun: false
+
+- task: ArtifactoryXrayScan@1
+  inputs:
+    artifactoryService: 'art-gaja'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    allowFailBuild: true
