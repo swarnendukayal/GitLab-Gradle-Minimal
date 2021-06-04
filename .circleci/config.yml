@@ -31,12 +31,23 @@ jobs:
           name: Configure JFrog CLI
           command: 
             ./jfrog rt config server1 --url=https://swarnenduk.jfrog.io/artifactory --user=admin --password=Password6
-            ./jfrog rt c show
       - run:
           name: Running the build
           command: 
             ./jfrog rt gradlec --server-id-resolve=server1 --server-id-deploy=server1 --repo-resolve=gradle-dev --repo-deploy=gradle-dev-local --use-wrapper=true --uses-plugin=true
+      - run:
+          name: Gradle Clean
+          command:
             ./frog rt gradle clean artifactoryPublish --build-name=gradle-circleci --build-number=${CIRCLE_BUILD_NUM}
+      - run:
+          name: Set Properties
+          command:       
             ./jfrog rt sp "gradle-release/GitLab-Gradle-Minimal/1.0-SNAPSHOT/GitLab-Gradle-Minimal-1.0-SNAPSHOT.jar" "artifacts=artifactory"
+      - run:
+          name: Collect Environment
+          command:      
             ./jfrog rt bce --build-name=gradle-circleci --build-number=${CIRCLE_BUILD_NUM}
+      - run:
+          name: Build Publish
+          command:
             ./jfrog rt bp gradle-circleci ${CIRCLE_BUILD_NUM}
