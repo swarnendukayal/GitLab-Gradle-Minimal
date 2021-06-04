@@ -46,7 +46,7 @@ jobs:
       - run:
           name: Collect Environment
           command:      
-            ./jfrog rt bce --build-name=gradle-circleci --build-number=${CIRCLE_BUILD_NUM}
+            ./jfrog rt bce gradle-circleci ${CIRCLE_BUILD_NUM}
       - run:
           name: Build Publish
           command:
