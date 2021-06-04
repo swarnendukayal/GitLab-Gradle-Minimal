@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Gradle Clean
           command:
-            ./frog rt gradle clean artifactoryPublish --build-name=gradle-circleci --build-number=${CIRCLE_BUILD_NUM}
+            ./jfrog rt gradle clean artifactoryPublish --build-name=gradle-circleci --build-number=${CIRCLE_BUILD_NUM}
       - run:
           name: Set Properties
           command:       
