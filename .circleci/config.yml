@@ -27,17 +27,16 @@ jobs:
           name: Install JFrog CLI
           command: 
             curl -fL https://getcli.jfrog.io | sh
-            chmod a+x jfrog && sudo mv jfrog /usr/local/bin
       - run:
           name: Configure JFrog CLI
           command: 
-            jfrog rt config server1 --url=https://swarnenduk.jfrog.io/artifactory --user=admin --password=Password6
-            jfrog rt c show
+            ./jfrog rt config server1 --url=https://swarnenduk.jfrog.io/artifactory --user=admin --password=Password6
+            ./jfrog rt c show
       - run:
           name: Running the build
           command: 
-            jfrog rt gradlec --server-id-resolve=server1 --server-id-deploy=server1 --repo-resolve=gradle-dev --repo-deploy=gradle-dev-local --use-wrapper=true --uses-plugin=true
-            frog rt gradle clean artifactoryPublish --build-name=gradle-circleci --build-number=${CIRCLE_BUILD_NUM}
-            jfrog rt sp "gradle-release/GitLab-Gradle-Minimal/1.0-SNAPSHOT/GitLab-Gradle-Minimal-1.0-SNAPSHOT.jar" "artifacts=artifactory"
-            jfrog rt bce --build-name=gradle-circleci --build-number=${CIRCLE_BUILD_NUM}
-            jfrog rt bp gradle-circleci ${CIRCLE_BUILD_NUM}
+            ./jfrog rt gradlec --server-id-resolve=server1 --server-id-deploy=server1 --repo-resolve=gradle-dev --repo-deploy=gradle-dev-local --use-wrapper=true --uses-plugin=true
+            ./frog rt gradle clean artifactoryPublish --build-name=gradle-circleci --build-number=${CIRCLE_BUILD_NUM}
+            ./jfrog rt sp "gradle-release/GitLab-Gradle-Minimal/1.0-SNAPSHOT/GitLab-Gradle-Minimal-1.0-SNAPSHOT.jar" "artifacts=artifactory"
+            ./jfrog rt bce --build-name=gradle-circleci --build-number=${CIRCLE_BUILD_NUM}
+            ./jfrog rt bp gradle-circleci ${CIRCLE_BUILD_NUM}
