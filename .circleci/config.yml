@@ -30,11 +30,11 @@ jobs:
       - run:
           name: Configure JFrog CLI
           command: 
-            ./jfrog rt config server1 --url=https://swarnenduk.jfrog.io/artifactory --user=admin --password=Password6
+            ./jfrog rt config server1 --url=https://jfrogtestusw2.jfrog.io/artifactory --user=a_amith --password=fAk3L5uWIs
       - run:
           name: Running the build
           command: 
-            ./jfrog rt gradlec --server-id-resolve=server1 --server-id-deploy=server1 --repo-resolve=gradle-dev --repo-deploy=gradle-dev-local --use-wrapper=true --uses-plugin=true
+            ./jfrog rt gradlec --server-id-resolve=server1 --server-id-deploy=server1 --repo-resolve=gradle-gradle-dev --repo-deploy=gradle-gradle-dev --use-wrapper=true --uses-plugin=true
       - run:
           name: Gradle Clean
           command:
